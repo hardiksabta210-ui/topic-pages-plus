@@ -1,123 +1,119 @@
 import { Link } from "react-router-dom";
-import { Leaf, Twitter, Instagram, Youtube, Github } from "lucide-react";
+import { Leaf, Wind, Zap, Trash2, Mail, MessageCircle } from "lucide-react";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const problemAreas = [
+    { label: "Air Quality", href: "/air-quality", icon: Wind },
+    { label: "Energy & Water", href: "/energy-water", icon: Zap },
+    { label: "Waste Sorting", href: "/waste", icon: Trash2 },
+  ];
+
+  const resources = [
+    { label: "Conservation Tips", href: "/energy-water" },
+    { label: "Recycling Guide", href: "/waste" },
+    { label: "AQI Explained", href: "/air-quality" },
+    { label: "Ask EcoBuddy", href: "/" },
+  ];
+
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-muted border-t">
       <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="p-2 rounded-full bg-primary-foreground/20">
-                <Leaf className="h-5 w-5" />
+          <div className="lg:col-span-1">
+            <Link to="/" className="flex items-center gap-2 font-bold text-xl mb-4">
+              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+                <Leaf className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-semibold text-lg">EcoBuddy</span>
+              <span>EcoBuddy</span>
             </Link>
-            <p className="text-primary-foreground/70 text-sm leading-relaxed">
-              Empowering individuals to make a positive impact on our planet through education and action.
+            <p className="text-sm text-muted-foreground mb-4">
+              Empowering communities to understand, track, and reduce their environmental impact through AI-powered guidance.
             </p>
+            <div className="flex gap-3">
+              <a
+                href="mailto:hello@ecobuddy.app"
+                className="w-10 h-10 rounded-full bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
-          {/* Topics */}
+          {/* Problem Areas */}
           <div>
-            <h4 className="font-semibold mb-4">Topics</h4>
-            <ul className="space-y-2 text-sm text-primary-foreground/70">
-              <li>
-                <Link to="/topic/forests" className="hover:text-primary-foreground transition-colors">
-                  Forest Conservation
-                </Link>
-              </li>
-              <li>
-                <Link to="/topic/oceans" className="hover:text-primary-foreground transition-colors">
-                  Ocean Conservation
-                </Link>
-              </li>
-              <li>
-                <Link to="/topic/renewable-energy" className="hover:text-primary-foreground transition-colors">
-                  Renewable Energy
-                </Link>
-              </li>
-              <li>
-                <Link to="/topic/wildlife" className="hover:text-primary-foreground transition-colors">
-                  Wildlife Protection
-                </Link>
-              </li>
+            <h3 className="font-semibold mb-4">Problem Areas</h3>
+            <ul className="space-y-3">
+              {problemAreas.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    to={item.href}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Resources */}
           <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm text-primary-foreground/70">
-              <li>
-                <a href="#" className="hover:text-primary-foreground transition-colors">
-                  Educational Guides
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary-foreground transition-colors">
-                  Take Action
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary-foreground transition-colors">
-                  Research & Data
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary-foreground transition-colors">
-                  Partner Organizations
-                </a>
-              </li>
+            <h3 className="font-semibold mb-4">Resources</h3>
+            <ul className="space-y-3">
+              {resources.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    to={item.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Connect */}
+          {/* Newsletter */}
           <div>
-            <h4 className="font-semibold mb-4">Connect</h4>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                aria-label="Twitter"
+            <h3 className="font-semibold mb-4">Stay Updated</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Get weekly sustainability tips and local environmental updates.
+            </p>
+            <form className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="flex-1 px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
               >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            </div>
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
-          <p>© 2025 EcoBuddy. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-primary-foreground transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-primary-foreground transition-colors">
-              Terms of Service
-            </a>
+        {/* Bottom */}
+        <div className="mt-12 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-muted-foreground">
+            © {currentYear} EcoBuddy. Building a sustainable future together.
+          </p>
+          <div className="flex gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+            <a href="#" className="hover:text-foreground transition-colors">Contact</a>
           </div>
         </div>
       </div>

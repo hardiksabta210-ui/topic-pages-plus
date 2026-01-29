@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Leaf, Menu, X } from "lucide-react";
+import { Leaf, Menu, X, Wind, Zap, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navItems = [
+    { label: "Air Quality", href: "/air-quality", icon: Wind, color: "text-ocean" },
+    { label: "Energy & Water", href: "/energy-water", icon: Zap, color: "text-earth" },
+    { label: "Waste Sorting", href: "/waste", icon: Trash2, color: "text-leaf" },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -17,38 +23,23 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link
-            to="/topic/forests"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Forests
-          </Link>
-          <Link
-            to="/topic/oceans"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Oceans
-          </Link>
-          <Link
-            to="/topic/renewable-energy"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Energy
-          </Link>
-          <Link
-            to="/topic/wildlife"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Wildlife
-          </Link>
+        <nav className="hidden md:flex items-center gap-1">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            >
+              <item.icon className={`h-4 w-4 ${item.color}`} />
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" size="sm">
-            Learn More
+          <Button size="sm" asChild>
+            <Link to="/air-quality">Get Started</Link>
           </Button>
-          <Button size="sm">Get Involved</Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -64,41 +55,23 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-background border-b border-border animate-slide-up">
-          <nav className="container py-4 flex flex-col gap-4">
-            <Link
-              to="/topic/forests"
-              className="text-muted-foreground hover:text-foreground transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Forests
-            </Link>
-            <Link
-              to="/topic/oceans"
-              className="text-muted-foreground hover:text-foreground transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Oceans
-            </Link>
-            <Link
-              to="/topic/renewable-energy"
-              className="text-muted-foreground hover:text-foreground transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Energy
-            </Link>
-            <Link
-              to="/topic/wildlife"
-              className="text-muted-foreground hover:text-foreground transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Wildlife
-            </Link>
-            <div className="flex gap-2 pt-4 border-t border-border">
-              <Button variant="ghost" size="sm" className="flex-1">
-                Learn More
-              </Button>
-              <Button size="sm" className="flex-1">
-                Get Involved
+          <nav className="container py-4 flex flex-col gap-2">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <item.icon className={`h-5 w-5 ${item.color}`} />
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            ))}
+            <div className="pt-4 border-t border-border">
+              <Button size="sm" className="w-full" asChild>
+                <Link to="/air-quality" onClick={() => setIsMenuOpen(false)}>
+                  Get Started
+                </Link>
               </Button>
             </div>
           </nav>
